@@ -11,11 +11,11 @@ FROM eclipse-temurin:17 AS BUILD
 COPY . /app/
 WORKDIR /app/
 RUN ./mvnw clean test package -Pproduction
-# At this point, we have the app (executable jar file):  /app/target/my-hilla-app-1.0-SNAPSHOT.jar
+# At this point, we have the app (executable jar file):  /app/target/mscb-demo-1.0-SNAPSHOT.jar
 
 # The "Run" stage. Start with a clean image, and copy over just the app itself, omitting gradle, npm and any intermediate build files.
 FROM eclipse-temurin:17
-COPY --from=BUILD /app/target/my-hilla-app-1.0-SNAPSHOT.jar /app/
+COPY --from=BUILD /app/target/mscb-demo-1.0-SNAPSHOT.jar /app/
 WORKDIR /app/
 EXPOSE 8080
-ENTRYPOINT java -jar my-hilla-app-1.0-SNAPSHOT.jar 8080
+ENTRYPOINT java -jar mscb-demo-1.0-SNAPSHOT.jar 8080
